@@ -1,11 +1,17 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import { api } from "@/api/instance";
+import { useAuth } from "@/hooks/student";
+import { ApiResponse } from "@/types";
+import { useParams, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 function Form() {
 
+    const { categoryId } = useParams();
     const router = useRouter()
+    const { student } = useAuth();
 
     const textRef = useRef<HTMLTextAreaElement>(null);
     const [isError, setError] = useState<boolean>(false);
@@ -13,19 +19,40 @@ function Form() {
     const sendForm = async () => {
         if (textRef.current?.value == "") {
             setError(true);
+            toast.error('Заполните все поля')
             setTimeout(() => {
                 setError(false);
             }, 3 * 1000);
             return;
         }
 
-        router.push('/');
-        router.refresh()
+        const body = {
+            "barcode": String(student?.barcode),
+            "category_id": Number(categoryId),
+            "message": textRef.current?.value
+        }
+
+        console.log(body)
+
+        await api.post<ApiResponse<undefined>>('/complaints', body)
+            .then(({ data: response }) => {
+
+                if (response.statusCode != 200) {
+                    toast.error(response.message);
+                    return;
+                }
+
+                router.push('/');
+                router.refresh()
+
+                toast.success('Вы успешно отправили жалобу')
+
+            })
     }
 
     return (
         <div className="test">
-            <div className='text-dark text-2xl font-semibold mt-8 mb-3'>Подробное описание вашей <br/> проблемы</div>
+            <div className='text-dark text-2xl font-semibold mt-8 mb-3'>Подробное описание вашей <br /> проблемы</div>
 
             <textarea
                 ref={textRef}

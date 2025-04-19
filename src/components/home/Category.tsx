@@ -1,5 +1,7 @@
+import { useAuth } from "@/hooks/student";
 import { ICategory } from "@/types";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface CategoryProps {
     category: ICategory
@@ -7,8 +9,15 @@ interface CategoryProps {
 
 function Category({ category }: CategoryProps) {
     const router = useRouter();
+    const { canSubmit } = useAuth();
 
     const handleClick = (id: number) => {
+
+        if (!canSubmit) {
+            toast.error("Лимит жалоб (Попробуйте в течение 3 часов)")
+            return;
+        }
+
         router.push(`/complaint/${id}`);
     };
 

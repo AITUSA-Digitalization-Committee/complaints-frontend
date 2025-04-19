@@ -1,27 +1,11 @@
 'use client'
 
-import { api } from "@/api/instance";
-import { ICategory, ApiResponse } from "@/types";
-import { useState, useEffect } from "react";
 import Category from "./Category";
+import { useCategories } from "@/hooks/categories";
 
 function Categories() {
 
-    const [categories, setCategories] = useState<ICategory[]>([])
-
-    const fetchCategories = async () => {
-        await api.get<ApiResponse<ICategory[]>>('/categories')
-            .then((response) => {
-                if (response.data.statusCode != 200) {
-                    return;
-                }
-                setCategories(response.data.data);
-            })
-    }
-
-    useEffect(() => {
-        fetchCategories();
-    }, [])
+    const { categories } = useCategories();
 
     return (
         <div className="flex flex-col gap-2">
