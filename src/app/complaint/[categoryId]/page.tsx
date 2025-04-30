@@ -19,7 +19,7 @@ export default function ComplaintPage() {
     }
 
     router.push('/');
-    toast.error("Лимит жалоб (Попробуйте в течение 3 часов)")
+    toast.error("Лимит жалоб (Попробуйте в течение 1 час)")
 
   }, [])
 

@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/hooks/student";
 import { ApiResponse, Student } from "@/types";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import xior from "xior";
 import Loading from "./Loading";
 
@@ -14,7 +14,7 @@ interface AuthProps {
 function Auth({ children, className }: AuthProps) {
     const { student, setStudent, setSubmit } = useAuth();
 
-    const [token, setToken] = useState("");
+    const { token, setToken } = useAuth();
 
     { /* Получаем token */ }
     useEffect(() => {

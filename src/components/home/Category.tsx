@@ -14,7 +14,7 @@ function Category({ category }: CategoryProps) {
     const handleClick = (id: number) => {
 
         if (!canSubmit) {
-            toast.error("Лимит жалоб (Попробуйте в течение 3 часов)")
+            toast.error("Лимит жалоб (Попробуйте в течение 1 час)")
             return;
         }
 

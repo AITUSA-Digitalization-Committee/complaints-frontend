@@ -27,12 +27,10 @@ function Form() {
         }
 
         const body = {
-            "barcode": String(student?.barcode),
-            "category_id": Number(categoryId),
+            "barcode": student?.barcode,
+            "category_id": categoryId,
             "message": textRef.current?.value
         }
-
-        console.log(body)
 
         await api.post<ApiResponse<undefined>>('/complaints', body)
             .then(({ data: response }) => {
