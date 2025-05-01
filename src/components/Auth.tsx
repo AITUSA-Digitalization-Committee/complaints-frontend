@@ -1,8 +1,8 @@
 'use client'
 
-import { useAuth } from "@/hooks/student";
-import { ApiResponse, Student } from "@/types";
-import { ReactNode, useEffect } from "react";
+import {useAuth} from "@/hooks/student";
+import {ApiResponse, Student} from "@/types";
+import {ReactNode, useEffect} from "react";
 import xior from "xior";
 import Loading from "./Loading";
 
@@ -11,17 +11,17 @@ interface AuthProps {
     className?: string
 }
 
-function Auth({ children, className }: AuthProps) {
-    const { student, setStudent, setSubmit } = useAuth();
+function Auth({children, className}: AuthProps) {
+    const {student, setStudent, setSubmit} = useAuth();
 
-    const { token, setToken } = useAuth();
+    const {token, setToken} = useAuth();
 
-    { /* Получаем token */ }
+    { /* Получаем token */
+    }
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
 
             if (event.data.type === "INIT") {
-                console.log("Received token:", event.data.data)
                 setToken(event.data.data);
             }
         };
@@ -33,7 +33,8 @@ function Auth({ children, className }: AuthProps) {
         };
     }, []);
 
-    { /* Получаем студента */ }
+    { /* Получаем студента */
+    }
     const fetchStudent = async () => {
 
         if (!token) {
@@ -56,7 +57,9 @@ function Auth({ children, className }: AuthProps) {
     }
 
     const fetchSubmit = async () => {
-        await xior.get<ApiResponse<{ canSubmit: boolean }>>('https://complaints-api.yeunikey.dev/complaints/can-submit', {
+        await xior.get<ApiResponse<{
+            canSubmit: boolean
+        }>>('https://complaints-api.yeunikey.dev/complaints/can-submit', {
             headers: {
                 Authorization: 'Bearer ' + token
             },
