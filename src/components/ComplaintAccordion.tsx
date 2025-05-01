@@ -50,6 +50,7 @@ function ComplaintAccordion() {
                         return (
                             <div key={i} className="bg-white rounded-2xl p-3 min-h-20 relative overflow-hidden"
                                  onClick={() => {
+
                                      router.push(`/complaint/info/${complaints.id}?pos=${i + 1}`);
                                  }}
                             >
