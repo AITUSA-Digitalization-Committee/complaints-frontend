@@ -1,15 +1,17 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Accordion from "./ui/Accordion";
-import { toast } from "react-toastify";
-import { useAuth } from "@/hooks/student";
-import { api } from "@/api/instance";
-import { ApiResponse } from "@/types";
+import {toast} from "react-toastify";
+import {useAuth} from "@/hooks/student";
+import {api} from "@/api/instance";
+import {ApiResponse} from "@/types";
+import {useRouter} from "next/navigation";
 
 function ComplaintAccordion() {
 
-    const { token } = useAuth();
+    const {token} = useAuth();
+    const router = useRouter();
     const [complaints, setComplaints] = useState<{ id: string, message: string }[]>([]);
 
     const fetchComplaints = async () => {
@@ -17,8 +19,7 @@ function ComplaintAccordion() {
             params: {
                 token: token
             }
-        }).then(({ data }) => {
-
+        }).then(({data}) => {
             if (data.statusCode != 200) {
                 toast.error(data.message);
                 return;
@@ -48,13 +49,11 @@ function ComplaintAccordion() {
                     {complaints.map((complaints, i) => {
                         return (
                             <div key={i} className="bg-white rounded-2xl p-3 min-h-20 relative overflow-hidden"
-                                onClick={() => {
-                                    toast.warn('Ещё в разработке...')
-                                }}
+                                 onClick={() => {
+                                     router.push(`/complaint/info/${complaints.id}?pos=${i + 1}`);
+                                 }}
                             >
-                                {/* <div className="font-semibold text-lg">
-                                    {'Жалоба #' + complaints.id}
-                                </div> */}
+
                                 <div className="absolute -bottom-2 left-0 text-5xl font-black opacity-10">
                                     {'#' + (i + 1)}
                                 </div>
@@ -69,4 +68,5 @@ function ComplaintAccordion() {
         </div>
     );
 }
+
 export default ComplaintAccordion;
