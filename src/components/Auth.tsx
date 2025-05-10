@@ -51,8 +51,6 @@ function Auth({children, className}: AuthProps) {
                 return;
             }
             setStudent(response.data.data);
-        }).then(err => {
-            console.log(err);
         })
     }
 
