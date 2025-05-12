@@ -1,7 +1,6 @@
 'use client'
 
 import { api } from '@/api/instance';
-import Auth from '@/components/Auth';
 import ComplaintAccordion from '@/components/ComplaintAccordion';
 import Categories from '@/components/home/Categories';
 import View from '@/components/View';
