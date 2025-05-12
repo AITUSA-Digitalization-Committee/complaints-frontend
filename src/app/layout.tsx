@@ -3,6 +3,7 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
+import Auth from '@/components/Auth';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <ToastContainer autoClose={2000} hideProgressBar={true} />
 
-        {children}
+        <Auth>
+          {children}
+        </Auth>
       </body>
     </html>
   );
