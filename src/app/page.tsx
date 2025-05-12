@@ -28,11 +28,9 @@ export default function HomePage() {
   }, [])
 
   return (
-    <View>
-      <Auth className='flex flex-col gap-8'>
-        <ComplaintAccordion />
-        <Categories />
-      </Auth>
+    <View className='flex flex-col gap-8'>
+      <ComplaintAccordion />
+      <Categories />
     </View>
   );
 }
