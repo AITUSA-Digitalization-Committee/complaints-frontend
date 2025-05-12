@@ -24,6 +24,13 @@ function Auth({children, className}: AuthProps) {
             if (event.data.type === "INIT") {
                 setToken(event.data.data);
             }
+
+            if (event.data.type === "ACTION" && event.data.data == 'back') {
+                if (window.location.pathname != '/') {
+                    window.history.back();
+                }
+            }
+
         };
 
         window.addEventListener("message", handleMessage);
